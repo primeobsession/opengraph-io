@@ -1,0 +1,24 @@
+{
+  "name": "opengraph-io",
+  "version": "1.0.0",
+  "description": "Website scraper to grab OpenGraph tags or supplement them when they don't exist",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test/general.js"
+  },
+  "keywords": ["opengraph", "scrape", "parse html"],
+  "homepage": "https://opengraph.io",
+  "repository": "https://github.com/primeobsession/opengraph-io",
+  "author": "Justin Furniss",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0"
+  }
+}
