@@ -15,7 +15,7 @@
   "homepage": "https://opengraph.io",
   "repository": "https://github.com/primeobsession/opengraph-io",
   "author": "Justin Furniss",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.2",
     "request": "^2.79.0",
