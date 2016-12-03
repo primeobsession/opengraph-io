@@ -39,6 +39,7 @@ var opengraph = require('opengraph-io')({appId: 'xxxxxx', cacheOk: false});
 The options supplied to the constructor above will be applied to any requests made by the library but can be overriden 
 by supplying parameters at the time of calling ``getSiteInfo``.
         
+### Using Callbacks
 To get site information using callbacks, the following will work
 
 ```js
@@ -54,6 +55,8 @@ opengraph.getSiteInfo('http://news.com', {cacheOk: false}, function(err, result)
 });
 
 ```
+
+### Using Promises
 If you are using promises, the same call will behave very similarly
  
  ```js
