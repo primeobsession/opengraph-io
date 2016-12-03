@@ -1,6 +1,6 @@
 {
   "name": "opengraph-io",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Website scraper to grab OpenGraph tags or supplement them when they don't exist",
   "main": "index.js",
   "scripts": {
