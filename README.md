@@ -1,7 +1,7 @@
 # OpenGraph ( Node Client 1.0.0 )
 
 [OpenGraph.io](https://www.opengraph.io/) client library for [nodejs](http://nodejs.org/).   Given a URL, the client 
-will make a HTTP request to OpenGraph.io which will in scrape the site for OpenGraph tags.  If they exist the tags will
+will make a HTTP request to OpenGraph.io which will scrape the site for OpenGraph tags.  If tags exist the tags will
 be returned to you.  
 
 Often times the appropriate tags will not exist and this is where OpenGraph.io shines.  It will
