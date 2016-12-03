@@ -88,14 +88,15 @@ describe('OpenGraph.io Client Tests', function(){
 
     });
 
-    it('should create a valid URL when forcing cache', function(done){
+    it('should create a proper query parameters', function(done){
 
-      var target = 'http://cnn.com';
+      var appId = 'XXXXXXXXXX';
 
-      var OG = new ogLib({cacheOk: false});
+      var OG = new ogLib({cacheOk: false, appId: appId});
       var params = OG._getSiteInfoQueryParams(OG.options);
 
       expect(params.cache_ok).to.equal('false');
+      expect(params.app_id).to.equal(appId);
 
       done();
 
