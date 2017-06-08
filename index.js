@@ -15,8 +15,12 @@ function opengraphio (options){
     // Set options for use in all requests
     this.options = _.extend({
       cacheOk: true,
-      version: '1.0'
+      version: '1.1'
     }, options || {});
+
+    if(!this.options.appId){
+      throw 'appId must be supplied when making requests to the API.  Get a free appId by signing up here: https://www.opengraph.io/'
+    }
 
     return this;
   };

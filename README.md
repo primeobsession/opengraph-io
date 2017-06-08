@@ -13,8 +13,12 @@ infer what the OpenGraph tags probably would be an return them to you as ```hybr
 The ```hybridGraph``` results will always default to any OpenGraph tags that were found on the page.  If only some tags
 were found, or none were, the missing tags will be inferred from the content on the page. 
 
-For most uses, the OpenGraph.io API is free.  If you end up having very heavy useage, the vast majority of projects will
+For most uses, the OpenGraph.io API is free. To get a free forever key, signup at [OpenGraph.io](https://www.opengraph.io/).  
+
+If you end up having very heavy useage, the vast majority of projects will
 be totally covered using one of our inexpensive plans.  Dedicated plans are also available upon request.
+
+**NOTE** Our free plan previously required no `appId` but was unfortunately abused.  The free plan still exists and is free forever, you will just have to create an account on [OpenGraph.io](https://www.opengraph.io/) 
 
 ## Installation
 
@@ -31,7 +35,7 @@ The client can be used with callbacks or promises.  Either way, to initialize th
 of your code:
 
 ```js
-var opengraph = require('opengraph-io')();
+var opengraph = require('opengraph-io')({appId: 'xxxxxx'});
 
 // OR - supply options
 

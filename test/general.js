@@ -1,34 +1,51 @@
 var
   expect = require('chai').expect,
-  ogLib = require('../index');
+  ogLib = require('../index'),
+  testAppId = process.env.TEST_APP_ID;
 
 describe('OpenGraph.io Client Tests', function(){
   
   describe('Client Setup', function(){
 
-    it('should require no options and use defaults', function(done){
+    it('should require app_id and other than that use defaults', function(done){
       try{
         var OG = new ogLib();
 
         expect(OG.options).to.exist;
-        expect(OG.options.version).to.equal('1.0');
+        expect(OG.options.version).to.equal('1.1');
         expect(OG.options.cacheOk).to.equal(true);
 
         done();
       }
       catch (e){
-        expect(e).to.not.exist;
+        expect(e).to.contain('appId');
+        done();
+      };
+    });
+
+    it('should initialize with app_id and other than that use defaults', function(done){
+      try{
+        var OG = new ogLib({appId: testAppId});
+
+        expect(OG.options).to.exist;
+        expect(OG.options.version).to.equal('1.1');
+        expect(OG.options.cacheOk).to.equal(true);
+
+        done();
+      }
+      catch (e){
+        expect(e).to.contain('appId');
         done();
       };
     });
 
     it('should allow overriding of defaults', function(done){
 
-      var OG = new ogLib({cacheOk: false});
+      var OG = new ogLib({cacheOk: false, appId: testAppId});
       expect(OG.options.cacheOk).to.equal(false);
 
       // default unimpacted values should still be there
-      expect(OG.options.version).to.equal('1.0');
+      expect(OG.options.version).to.equal('1.1');
 
       done();
 
@@ -36,12 +53,12 @@ describe('OpenGraph.io Client Tests', function(){
 
     it('should be able to initialize with one line and no options', function(done){
 
-      var OG = require('../index')({cacheOk: false});
+      var OG = require('../index')({cacheOk: false, appId: testAppId});
 
       expect(OG.options.cacheOk).to.equal(false);
 
       // default unimpacted values should still be there
-      expect(OG.options.version).to.equal('1.0');
+      expect(OG.options.version).to.equal('1.1');
 
       done();
 
@@ -49,12 +66,12 @@ describe('OpenGraph.io Client Tests', function(){
 
     it('should be able to initialize with one line', function(done){
 
-      var OG = require('../index')();
+      var OG = require('../index')({appId: testAppId});
 
       expect(OG.options.cacheOk).to.equal(true);
 
       // default unimpacted values should still be there
-      expect(OG.options.version).to.equal('1.0');
+      expect(OG.options.version).to.equal('1.1');
 
       done();
 
@@ -68,10 +85,10 @@ describe('OpenGraph.io Client Tests', function(){
 
       var target = 'http://cnn.com';
 
-      var OG = new ogLib();
+      var OG = new ogLib({appId: testAppId});
       var url = OG._getSiteInfoUrl(target, OG.options);
 
-      expect(url).to.equal('http://opengraph.io/api/1.0/site/' + encodeURIComponent(target));
+      expect(url).to.equal('https://opengraph.io/api/1.1/site/' + encodeURIComponent(target));
       done();
 
     });
@@ -83,7 +100,7 @@ describe('OpenGraph.io Client Tests', function(){
       var OG = new ogLib({appId: '111111111'});
       var url = OG._getSiteInfoUrl(target, OG.options);
 
-      expect(url).to.equal('https://opengraph.io/api/1.0/site/' + encodeURIComponent(target));
+      expect(url).to.equal('https://opengraph.io/api/1.1/site/' + encodeURIComponent(target));
       done();
 
     });
@@ -110,7 +127,7 @@ describe('OpenGraph.io Client Tests', function(){
     var testUrl ='http://github.com';
 
     before(function(done){
-      OG = new ogLib();
+      OG = new ogLib({appId: testAppId});
       done();
     });
 
