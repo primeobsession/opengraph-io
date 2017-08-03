@@ -89,7 +89,7 @@ function opengraphio (options){
           callback(err);
         }
         else{
-          Promise.reject(err);
+          return Promise.reject(err);
         }
       });
   };
