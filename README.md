@@ -39,9 +39,18 @@ var opengraph = require('opengraph-io')({appId: 'xxxxxx'});
 
 // OR - supply options
 
-var opengraph = require('opengraph-io')({appId: 'xxxxxx', cacheOk: false});
+var opengraph = require('opengraph-io')({
+    appId: 'xxxxxx', 
+    cacheOk: true, // If a cached result is available, use it for quickness
+    useProxy: false,  // Proxies help avoid being blocked and can bypass capchas
+    maxCacheAge: 432000000, // The maximum cache age to accept
+    acceptLang: 'en-US,en;q=0.9', // Language to present to the site. 
+    fullRender: false // This will cause JS to execute when rendering to deal with JS dependant sites
+});
+
 
 ```
+The options shown above are the default options.  To undersand more about these parameters, please view our documentation at: https://www.opengraph.io/documentation/ 
 
 The options supplied to the constructor above will be applied to any requests made by the library but can be overriden 
 by supplying parameters at the time of calling ``getSiteInfo``.

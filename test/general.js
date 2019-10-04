@@ -4,7 +4,7 @@ var
   testAppId = process.env.TEST_APP_ID;
 
 describe('OpenGraph.io Client Tests', function(){
-  
+
   describe('Client Setup', function(){
 
     it('should require app_id and other than that use defaults', function(done){
@@ -76,6 +76,61 @@ describe('OpenGraph.io Client Tests', function(){
       done();
 
     });
+
+    it('should default to use cache and not use proxy', function(done){
+      var OG = require('../index')({appId: testAppId});
+
+      var params = OG._getSiteInfoQueryParams(OG.options);
+
+      expect(params.cache_ok).to.equal('true');
+      expect(params.use_proxy).to.equal('false');
+      expect(params.max_cache_age).to.not.exist;
+      expect(params.accept_lang).to.not.exist;
+      expect(params.full_render).to.not.exist;
+
+      done();
+    })
+
+    it('should support set use proxy parameter', function(done){
+      var OG = require('../index')({appId: testAppId, useProxy: true});
+
+      var params = OG._getSiteInfoQueryParams(OG.options);
+
+      expect(params.cache_ok).to.equal('true');
+      expect(params.use_proxy).to.equal('true');
+
+      done();
+    });
+
+    it('should support set max cache age parameter', function(done){
+      var OG = require('../index')({appId: testAppId, maxCacheAge: 100000});
+
+      var params = OG._getSiteInfoQueryParams(OG.options);
+
+      expect(params.max_cache_age).to.equal(100000);
+      done();
+    });
+
+
+    it('should support set accept lang parameter', function(done){
+      var OG = require('../index')({appId: testAppId, acceptLang: 'en-us'});
+
+      var params = OG._getSiteInfoQueryParams(OG.options);
+
+      expect(params.accept_lang).to.equal('en-us');
+      done();
+    });
+
+
+    it('should support set full render parameter', function(done){
+      var OG = require('../index')({appId: testAppId, fullRender: true});
+
+      var params = OG._getSiteInfoQueryParams(OG.options);
+
+      expect(params.full_render).to.equal('true');
+      done();
+    });
+
 
   });
 

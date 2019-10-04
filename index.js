@@ -33,15 +33,37 @@ function opengraphio (options){
     return baseUrl;
   };
 
+
   Client.prototype._getSiteInfoQueryParams = function(options){
     var queryStringValues = {};
+
+    // Default options
+    queryStringValues.cache_ok = 'true';
+    queryStringValues.use_proxy = 'false';
 
     if(options.cacheOk === false){
       queryStringValues.cache_ok = 'false';
     }
 
+    if(options.useProxy === true){
+      queryStringValues.use_proxy = 'true';
+    }
+
     if(options.appId){
       queryStringValues.app_id = options.appId;
+    }
+
+    if(options.fullRender === true){
+      queryStringValues.full_render = 'true'
+    }
+
+    if(options.maxCacheAge){
+      queryStringValues.max_cache_age = options.maxCacheAge;
+    }
+
+
+    if(options.acceptLang){
+      queryStringValues.accept_lang = options.acceptLang;
     }
 
     return queryStringValues;
