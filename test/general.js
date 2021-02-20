@@ -20,7 +20,7 @@ describe('OpenGraph.io Client Tests', function(){
       catch (e){
         expect(e).to.contain('appId');
         done();
-      };
+      }
     });
 
     it('should initialize with app_id and other than that use defaults', function(done){
@@ -36,7 +36,7 @@ describe('OpenGraph.io Client Tests', function(){
       catch (e){
         expect(e).to.contain('appId');
         done();
-      };
+      }
     });
 
     it('should allow overriding of defaults', function(done){
@@ -189,7 +189,7 @@ describe('OpenGraph.io Client Tests', function(){
     it('should get results from a site with no option and only a callback', function(done){
 
       OG.getSiteInfo(testUrl , function(err, result){
-        expect(err).to.not.exist;
+        expect(err).to.not.exist; // Check the error to see if you are running a rate limit error
         expect(result).to.exist;
         expect(result.url).to.equal(testUrl);
         expect(result.openGraph.site_name).to.equal('GitHub');
@@ -226,6 +226,33 @@ describe('OpenGraph.io Client Tests', function(){
           expect(result.url).to.equal(testUrl);
           expect(result.openGraph.site_name).to.equal('GitHub');
           return;
+        });
+    });
+
+    it('should get results from a site with retryStrategies', function(){
+      const retryUrl = "https://www.newegg.com/Product/Product.aspx?Item=N82E16813157762";
+
+      return OG.getSiteInfo(retryUrl, {
+        cacheOk: false,
+        retryStrategies: [
+          {
+            // Requests using the default options.
+            requires: ["openGraph.title"]
+          },
+          {
+            fullRender: true,
+            requires: ["openGraph.title"]
+          },
+          {
+            useProxy: true,
+            requires: ["openGraph.title"]
+          }
+        ]
+      })
+        .then(function(result){
+          expect(result).to.exist;
+          expect(result.url).to.equal(retryUrl);
+          expect(result.openGraph.title).to.equal("ASRock AB350M Pro4 AM4 Micro ATX AMD Motherboard - Newegg.com");
         });
     });
 
