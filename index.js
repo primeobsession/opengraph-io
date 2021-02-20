@@ -11,6 +11,7 @@ function opengraphio(options) {
   /**
    * @typedef RequestOptionsExtended
    * @inheritDoc RequestOptionsSingle
+   * @property {Array<RequestOptions>} [retryStrategies]
    */
 
   /**
@@ -20,6 +21,7 @@ function opengraphio(options) {
    * @property {boolean} fullRender
    * @property {number} maxCacheAge
    * @property {boolean} acceptLang
+   * @property {Array<string>} [requires] Required values to be considered successful (Only Used when you are using `retryStrategies`)
    */
 
   /**
@@ -114,6 +116,51 @@ function opengraphio(options) {
 
     if (cb) {
       callback = cb;
+    }
+
+    if (options.retryStrategies && options.retryStrategies.length !== 0) {
+
+      var {retryStrategies, ...defaultOptions} = options;
+
+      return retryStrategies.reduce((resultPromise, strategyOptions) => {
+        var {requires, ...retryOptions} = _.extend(strategyOptions, defaultOptions);
+
+        return resultPromise.then(state => {
+          // Previous Output is a good response, skip other strategies.
+          if (Object.keys(state).length > 1) return state;
+
+          return this.getSiteInfo(url, retryOptions)
+            .then(result => {
+              // Check the requirements
+              if (_.every(requires, _.partial(_.has, result))) {
+                // Return the value if it matches
+                return Promise.resolve(Object.assign(result, {
+                  allRequests: [
+                    ...state.allRequests
+                  ]
+                }));
+              }
+              return Promise.resolve(Object.assign(state, {
+                allRequests: [
+                  ...state.allRequests,
+                  {
+                    requires,
+                    request: retryOptions,
+                    response: result
+                  }
+                ]
+              }));
+            });
+
+        })
+      }, Promise.resolve({allRequests: []}))
+        .then(results => {
+          if (callback) {
+            return callback(null, results);
+          } else {
+            return results;
+          }
+        });
     }
 
     var requestOptions = _.extend(this.options, opts);
