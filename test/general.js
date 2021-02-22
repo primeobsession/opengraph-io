@@ -241,11 +241,7 @@ describe('OpenGraph.io Client Tests', function(){
             requires: ["openGraph.title"]
           },
           {
-            fullRender: true,
-            requires: ["openGraph.title"]
-          },
-          {
-            useProxy: true,
+            // Requests using the default options.
             requires: ["openGraph.title"]
           }
         ]
@@ -254,7 +250,7 @@ describe('OpenGraph.io Client Tests', function(){
           expect(result).to.exist;
           expect(result.url).to.equal(retryUrl);
           expect(result.allRequests.length).to.equal(1);
-          expect(result.openGraph.title).to.equal("ASRock AB350M Pro4 AM4 Micro ATX AMD Motherboard - Newegg.com");
+          expect(result.hybridGraph.title).to.exist;
         });
     });
 

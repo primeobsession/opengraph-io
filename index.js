@@ -172,10 +172,21 @@ function opengraphio(options) {
         })
       }, Promise.resolve({allRequests: []}))
         .then(results => {
+          var finalResults = results;
+
+          if (!results.url) {
+            // No requests matched the `requires` params
+            // Inject the last request.
+            var totalRequests = finalResults.allRequests.length
+            var lastRequest = finalResults.allRequests[ totalRequests - 1 ];
+            finalResults.allRequests.pop();
+            finalResults = Object.assign(lastRequest.response, finalResults);
+          }
+
           if (callback) {
-            return callback(null, results);
+            return callback(null, finalResults);
           } else {
-            return results;
+            return finalResults;
           }
         });
     }
