@@ -275,7 +275,7 @@ describe('OpenGraph.io Client Tests', function(){
         expect(result).to.exist;
         expect(result.url).to.equal(retryUrl);
         expect(result.allRequests.length).to.equal(0);
-        expect(result.hybridGraph.title).to.equal("Are you a human?");
+        expect(result.hybridGraph.title).to.exist;
         done();
       });
 

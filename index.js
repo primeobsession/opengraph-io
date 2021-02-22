@@ -171,13 +171,6 @@ function opengraphio(options) {
 
         })
       }, Promise.resolve({allRequests: []}))
-        .catch(err => {
-          if (callback) {
-            return callback(err, null);
-          } else {
-            return Promise.reject(err);
-          }
-        })
         .then(results => {
           if (callback) {
             return callback(null, results);
