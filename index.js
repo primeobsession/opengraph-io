@@ -133,7 +133,9 @@ function opengraphio(options) {
 
         return resultPromise.then(state => {
           // Previous Output is a good response, skip other strategies.
-          if (Object.keys(state).length > 1) return state;
+          if (Object.keys(state).length > 1) {
+            return state;
+          }
 
           return this.getSiteInfo(url, retryOptions)
             .then(result => {
@@ -154,10 +156,28 @@ function opengraphio(options) {
                 response: result
               })
               return Promise.resolve(Object.assign(state, returnData));
-            });
+            })
+            .catch(err => {
+              var returnData = {
+                allRequests: state.allRequests
+              };
+              returnData.allRequests.push({
+                requires,
+                request: retryOptions,
+                response: err
+              })
+              return Promise.resolve(Object.assign(state, returnData));
+            })
 
         })
       }, Promise.resolve({allRequests: []}))
+        .catch(err => {
+          if (callback) {
+            return callback(err, null);
+          } else {
+            return Promise.reject(err);
+          }
+        })
         .then(results => {
           if (callback) {
             return callback(null, results);
@@ -191,7 +211,7 @@ function opengraphio(options) {
         if (callback) {
           return callback(err);
         } else {
-          Promise.reject(err);
+          return Promise.reject(err);
         }
       });
   };
