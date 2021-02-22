@@ -135,9 +135,7 @@ function opengraphio(options) {
               if (_.every(requires, _.partial(_.has, result))) {
                 // Return the value if it matches
                 return Promise.resolve(Object.assign(result, {
-                  allRequests: [
-                    ...state.allRequests
-                  ]
+                  allRequests: state.allRequests
                 }));
               }
               return Promise.resolve(Object.assign(state, {
