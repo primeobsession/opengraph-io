@@ -258,6 +258,29 @@ describe('OpenGraph.io Client Tests', function(){
         });
     });
 
+    it('should get results from a site with retryStrategies callback', function(done) {
+      this.timeout(8000);
+      const retryUrl = "https://www.newegg.com/Product/Product.aspx?Item=N82E16813157762";
+
+      OG.getSiteInfo(retryUrl, {
+        cacheOk: false,
+        retryStrategies: [
+          {
+            // Requests using the default options.
+            requires: ["hybridGraph.title"]
+          }
+        ]
+      }, function (err, result) {
+        expect(err).to.not.exist;
+        expect(result).to.exist;
+        expect(result.url).to.equal(retryUrl);
+        expect(result.allRequests.length).to.equal(0);
+        expect(result.hybridGraph.title).to.equal("Are you a human?");
+        done();
+      });
+
+    });
+
   });
 
 })
