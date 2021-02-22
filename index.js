@@ -120,10 +120,16 @@ function opengraphio(options) {
 
     if (options.retryStrategies && options.retryStrategies.length !== 0) {
 
-      var {retryStrategies, ...defaultOptions} = options;
+      var retryStrategies = options.retryStrategies;
+      var defaultOptions = _.clone(options);
+      delete defaultOptions.retryStrategies;
 
       return retryStrategies.reduce((resultPromise, strategyOptions) => {
-        var {requires, ...retryOptions} = _.extend(strategyOptions, defaultOptions);
+        var strategyOptionsCompiled = _.extend(strategyOptions, defaultOptions);
+
+        var requires = strategyOptionsCompiled.requires;
+        var retryOptions = _.clone(strategyOptionsCompiled);
+        delete defaultOptions.requires;
 
         return resultPromise.then(state => {
           // Previous Output is a good response, skip other strategies.
@@ -138,16 +144,16 @@ function opengraphio(options) {
                   allRequests: state.allRequests
                 }));
               }
-              return Promise.resolve(Object.assign(state, {
-                allRequests: [
-                  ...state.allRequests,
-                  {
-                    requires,
-                    request: retryOptions,
-                    response: result
-                  }
-                ]
-              }));
+
+              var returnData = {
+                allRequests: state.allRequests
+              };
+              returnData.allRequests.push({
+                requires,
+                request: retryOptions,
+                response: result
+              })
+              return Promise.resolve(Object.assign(state, returnData));
             });
 
         })
