@@ -230,6 +230,8 @@ describe('OpenGraph.io Client Tests', function(){
     });
 
     it('should get results from a site with retryStrategies', function(){
+      this.timeout(5000);
+
       const retryUrl = "https://www.newegg.com/Product/Product.aspx?Item=N82E16813157762";
 
       return OG.getSiteInfo(retryUrl, {
