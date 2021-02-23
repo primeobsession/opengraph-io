@@ -96,7 +96,8 @@ opengraph.getSiteInfo('http://news.com', {cacheOk: false})
 *NOTE: each retry will be counted as an additional request based on the paramters for that request*
 
 With retry strategies you can define properties you require to be populated (e.g. title or description) and also provide the strategies in the order you would like them to be attempted.
-The client will work through the strategies until the `requires` parameter list is satisfied. 
+The client will work through the strategies until the `requires`
+parameter list is satisfied. 
 
 Key points to know is this is a
 - Note that all requests made are returned using an element of *result* named `allRequests`.
