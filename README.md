@@ -91,6 +91,47 @@ opengraph.getSiteInfo('http://news.com', {cacheOk: false})
 
 ```
 
+### Using Retry Strategies
+Using Retry Strategies, you can define a set of parameters you want from Opengraph at the URL.
+When the request starts it will use the list of strategies make request until the fulfillment of
+ the *requires* parameter list.
+
+Key points to know is this is a
+Note that all requests made are returned using an element of *result* named `allRequests`.
+
+> You must provide `requires` as a parameter of *option*, it's used to define what values you want back to consider it a "good" response.
+
+Below is the example where we want data from Newegg. Using retry strategies we can get the best results.
+
+If all retry strategies have failed the requirements specified in `requires` then it will return the most recent  
+ request made.
+
+```js
+opengraph.getSiteInfo('https://www.newegg.com/Product/Product.aspx?Item=N82E16813157762', {
+      cacheOk: false,
+      retryStrategies: [
+        {
+          // Requests using the default options.
+          requires: ["openGraph.title"]
+        },
+        {
+          // Make a full request to full render
+          fullRender: true,
+          requires: ["openGraph.title"]
+        },
+        {
+          // Make a request using the proxy
+          useProxy: true,
+          requires: ["openGraph.title"]
+        }
+      ]
+    })
+    .then(function(result){
+      console.log('Site title is', result.hybridGraph.title);
+    });
+````
+
+
 ## Support
 
 Feel free to reach out at any time with questions or suggestions by adding to the issues for this repo or if you'd 
