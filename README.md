@@ -92,18 +92,22 @@ opengraph.getSiteInfo('http://news.com', {cacheOk: false})
 ```
 
 ### Using Retry Strategies
-Using Retry Strategies, you can define a set of parameters you want from Opengraph at the URL.
-When the request starts it will use the list of strategies make request until the fulfillment of
- the *requires* parameter list.
+
+*NOTE: each retry will be counted as an additional request based on the paramters for that request*
+
+With retry strategies you can define properties you require to be populated (e.g. title or description) and also provide the strategies in the order you would like them to be attempted.
+The client will work through the strategies until the *requires* parameter list is satisfied. 
 
 Key points to know is this is a
-Note that all requests made are returned using an element of *result* named `allRequests`.
+- Note that all requests made are returned using an element of *result* named `allRequests`.
+- You must provide `requires` as a parameter of *option*, it's used to define what values you want back to consider it a "good" response.
 
-> You must provide `requires` as a parameter of *option*, it's used to define what values you want back to consider it a "good" response.
+The example below will execute as follows:
+- Make a normal request for this url.
+- If the previous request did not return the `openGraph.title` field, it will make a request using full javascript rendering
+- If the previous request did not return the `openGraph.title` field, it will make a request using our proxy service
 
-Below is the example where we want data from Newegg. Using retry strategies we can get the best results.
-
-If all retry strategies have failed the requirements specified in `requires` then it will return the most recent  
+If all retry strategies have failed the requirements specified in `requires` then it will return the last  
  request made.
 
 ```js
