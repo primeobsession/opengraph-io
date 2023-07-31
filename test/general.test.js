@@ -1,4 +1,4 @@
-import OpenGraphIO from '../index';
+import OpenGraphIO from '../dist';
 
 describe('OpenGraph.io Client Tests', () => {
   let testAppId;
@@ -113,7 +113,7 @@ describe('OpenGraph.io Client Tests', () => {
     const testUrl = 'http://github.com/';
 
     beforeAll(() => {
-      OG = new OpenGraphIO({ appId: testAppId });
+      OG = new OpenGraphIO({appId: testAppId});
     });
 
     it('should get results from a site with no option', async () => {
@@ -137,7 +137,7 @@ describe('OpenGraph.io Client Tests', () => {
     it('should get results from a site with retryStrategies', async () => {
       const retryUrl = 'https://dev.to/koolkishan/build-a-whatsapp-clone-realtime-chat-using-nextjs-socketio-tailwind-css-nodejs-express-and-prisma-1j0k';
       OG.options.cacheOk = false;
-      const retryStrategies =  [
+      const retryStrategies = [
         {
           requires: ['openGraph.title'],
         },
@@ -151,17 +151,26 @@ describe('OpenGraph.io Client Tests', () => {
         },
       ]
 
-      const result = await OG.getSiteInfo(retryUrl, { retryStrategies })
+      const result = await OG.getSiteInfo(retryUrl, {retryStrategies})
       expect(result).toBeDefined();
       expect(result.url).toBe(retryUrl);
       expect(result.allRequests.length).toBe(1);
       expect(result.hybridGraph.title).toBeDefined();
     }, 10000);
 
+    it('should get results from a site with .then', async () => {
+      const url = 'https://www.cybergrx.com/resources/how-to-create-a-barebones-production-ready-npm-package-with-babel-7';
+
+      return OG.getSiteInfo(url).then((result) => {
+        expect(result).toBeDefined();
+        expect(result.hybridGraph.title).toBe('How To Create A Barebones Production Ready NPM Package With Babel 7 | CyberGRX');
+      });
+    }, 10000);
+
     it('should get results from a site with retryStrategies and async/await', async () => {
       const retryUrl = 'https://frankspeech.com/video/10923-rev-paul-burke-adult-and-teen-challenge-brooklyn';
       OG.options.cacheOk = false;
-      const retryStrategies =  [
+      const retryStrategies = [
         {
           // Requests using the default options.
           requires: ["openGraph.title"]
@@ -177,7 +186,7 @@ describe('OpenGraph.io Client Tests', () => {
           requires: ["hybridGraph.title"]
         }
       ]
-      const result = await OG.getSiteInfo(retryUrl, { retryStrategies })
+      const result = await OG.getSiteInfo(retryUrl, {retryStrategies})
       expect(result).toBeDefined();
       expect(result.url).toBe(retryUrl);
       expect(result.allRequests.length).toBe(1);

@@ -2,11 +2,14 @@
   "name": "opengraph-io",
   "version": "3.0.0",
   "description": "Website scraper to grab OpenGraph tags or supplement them when they don't exist",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
+  "entry point": "dist/index.js",
   "scripts": {
-    "test": "jest",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*"
+    "start": "npx babel src --watch --out-dir dist",
+    "build": "npx babel src --out-dir dist",
+    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
+    "test": "jest"
   },
   "keywords": [
     "opengraph",
@@ -22,6 +25,8 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/cli": "^7.22.9",
+    "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "babel-jest": "^29.6.1",
     "chai": "^4.3.7",

@@ -22,7 +22,8 @@ class OpenGraphIO {
   getSiteInfoUrl(url) {
     const proto = this.options.appId ? 'https' : 'http';
 
-    return `${proto}://opengraph.io/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
+    // return `${proto}://opengraph.io/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
+    return `http://localhost:5001/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
   }
 
   getSiteInfoQueryParams(options) {
