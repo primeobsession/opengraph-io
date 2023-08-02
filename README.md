@@ -1,10 +1,10 @@
-# OpenGraph ( Node Client 3.0.0 )
+# OpenGraph ( Node Client 3.0.1 )
 
 [![Build Status](https://travis-ci.org/primeobsession/opengraph-io.svg?branch=master)](https://travis-ci.org/primeobsession/opengraph-io)
 [![Coverage Status](https://coveralls.io/repos/github/primeobsession/opengraph-io/badge.svg)](https://coveralls.io/github/primeobsession/opengraph-io)
 
 [OpenGraph.io](https://www.opengraph.io/) client library for [nodejs](http://nodejs.org/). Given a URL, the client 
-will make a HTTP request to OpenGraph.io which will scrape the site for OpenGraph tags.  If tags exist the tags will
+will make a HTTP request to OpenGraph.io which will scrape the site for OpenGraph tags. If tags exist the tags will
 be returned to you. 
 
 
@@ -33,7 +33,10 @@ To install the OpenGraph.io client...
 The library provides an OpenGraphIO class that you can instantiate with the required options. Here's an example:
 
 ```js
-const OpenGraphIO = require('opengraph-io');
+// With Require
+const { OpenGraphIO } = require('opengraph-io');
+// Or with Import
+import { OpenGraphIO } from 'opengraph-io';
 
 const options = {
   appId: 'YOUR_APP_ID', // This is your OpenGraph.io App ID and Required.  Sign up for a free one at https://www.opengraph.io/
