@@ -1,9 +1,8 @@
 {
   "name": "opengraph-io",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Website scraper to grab OpenGraph tags or supplement them when they don't exist",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "start": "npx babel src --watch --out-dir dist",
     "build": "npx babel src --out-dir dist",

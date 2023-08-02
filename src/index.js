@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-class OpenGraphIO {
+export class OpenGraphIO {
   constructor(options) {
     this.options = _.extend(
       {
@@ -22,8 +22,7 @@ class OpenGraphIO {
   getSiteInfoUrl(url) {
     const proto = this.options.appId ? 'https' : 'http';
 
-    // return `${proto}://opengraph.io/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
-    return `http://localhost:5001/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
+    return `${proto}://opengraph.io/api/${this.options.version}/${this.options.service}/${encodeURIComponent(url)}`
   }
 
   getSiteInfoQueryParams(options) {
