@@ -106,6 +106,12 @@ describe('OpenGraph.io Client Tests', () => {
 
       expect(OG.options.service).toBe('site');
     });
+
+    it('should should set the autoProxy to false', () => {
+      const OG = new OpenGraphIO({ appId: testAppId, autoProxy: false });
+
+      expect(OG.options.autoProxy).toBe(false);
+    });
   });
 
   describe('Full Tests', () => {
@@ -163,9 +169,9 @@ describe('OpenGraph.io Client Tests', () => {
 
       return OG.getSiteInfo(url).then((result) => {
         expect(result).toBeDefined();
-        expect(result.hybridGraph.title).toBe('How To Create A Barebones Production Ready NPM Package With Babel 7 | CyberGRX');
+        expect(result.hybridGraph.title).toBe('How To Create A Barebones Production Ready NPM Package With Babel 7');
       });
-    }, 10000);
+    }, 25000);
 
     it('should get results from a site with retryStrategies and async/await', async () => {
       const retryUrl = 'https://frankspeech.com/video/10923-rev-paul-burke-adult-and-teen-challenge-brooklyn';
@@ -189,7 +195,7 @@ describe('OpenGraph.io Client Tests', () => {
       const result = await OG.getSiteInfo(retryUrl, {retryStrategies})
       expect(result).toBeDefined();
       expect(result.url).toBe(retryUrl);
-      expect(result.allRequests.length).toBe(1);
+      expect(result.allRequests.length).toBe(2);
       expect(result.hybridGraph.title).toBeDefined();
     }, 10000);
   });

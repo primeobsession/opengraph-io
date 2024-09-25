@@ -8,6 +8,7 @@ export class OpenGraphIO {
         cacheOk: true,
         service: 'site',
         version: '1.1',
+        autoProxy: true,
       },
       options || {}
     );
