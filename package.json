@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx babel src --watch --out-dir dist",
     "build": "npx babel src --out-dir dist",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
+    "cover": "jest --coverage",
     "test": "jest"
   },
   "keywords": [
@@ -28,8 +28,6 @@
     "@babel/preset-env": "^7.22.9",
     "babel-jest": "^29.6.1",
     "chai": "^4.3.7",
-    "coveralls": "^2.11.15",
-    "istanbul": "^0.4.5",
     "jest": "^29.6.1"
   }
 }
