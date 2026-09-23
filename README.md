@@ -1,4 +1,4 @@
-# OpenGraph ( Node Client 3.0.1 )
+# OpenGraph ( Node Client 3.0.2 )
 
 [![Build Status](https://travis-ci.org/primeobsession/opengraph-io.svg?branch=master)](https://travis-ci.org/primeobsession/opengraph-io)
 [![Coverage Status](https://coveralls.io/repos/github/primeobsession/opengraph-io/badge.svg)](https://coveralls.io/github/primeobsession/opengraph-io)
